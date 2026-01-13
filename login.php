@@ -82,19 +82,19 @@
 					// отключаем установку заголовка типа запроса. Так jQuery скажет серверу что это строковой запрос
 					contentType : false, 
 					// функция успешного ответа сервера
-					success: function (_data) {
-						console.log("Авторизация прошла успешно, id: " +_data);
-						if(_data == "") {
-							loading.style.display = "none";
-							button.className = "button";
-							alert("Логин или пароль не верный.");
-						} else {
-							localStorage.setItem("token", _data);
-							location.reload();
-							loading.style.display = "none";
-							button.className = "button";
-						}
-					},
+						success: function (_data) {
+							console.log("Авторизация прошла успешно, токен: " + _data);
+							if(_data == "") {
+							} else {
+								localStorage.setItem("token", _data);
+								
+								$.ajaxSetup({
+									headers: {'token': _data}
+								});
+								
+								location.reload();
+							}
+						},
 					// функция ошибки
 					error: function( ){
 						console.log('Системная ошибка!');
