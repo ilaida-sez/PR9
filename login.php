@@ -81,20 +81,14 @@
 					processData : false,
 					// отключаем установку заголовка типа запроса. Так jQuery скажет серверу что это строковой запрос
 					contentType : false, 
-					// функция успешного ответа сервера
-						success: function (_data) {
-							console.log("Авторизация прошла успешно, токен: " + _data);
-							if(_data == "") {
-							} else {
-								localStorage.setItem("token", _data);
-								
-								$.ajaxSetup({
-									headers: {'token': _data}
-								});
-								
-								location.reload();
-							}
-						},
+					success: function (_data) {
+						if(_data == "") {
+						} else {
+							localStorage.setItem("token", _data);
+							$.ajaxSetup({headers: {'token': _data}});
+							location.reload();
+						}
+					},
 					// функция ошибки
 					error: function( ){
 						console.log('Системная ошибка!');
